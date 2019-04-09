@@ -11,7 +11,7 @@
 import child_process from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import type {ConfigT} from '../../tools/config/types.flow';
+import type {ContextT} from '../../tools/types.flow';
 import findXcodeProject from './findXcodeProject';
 import parseIOSDevicesList from './parseIOSDevicesList';
 import findMatchingSimulator from './findMatchingSimulator';
@@ -30,7 +30,7 @@ type FlagsT = {
   port: number,
 };
 
-function runIOS(_: Array<string>, ctx: ConfigT, args: FlagsT) {
+function runIOS(_: Array<string>, ctx: ContextT, args: FlagsT) {
   if (!fs.existsSync(args.projectPath)) {
     throw new Error(
       'iOS project folder not found. Are you sure this is a React Native project?',
@@ -473,8 +473,10 @@ export default {
       command: '--project-path [string]',
       description:
         'Path relative to project root where the Xcode project ' +
+        'Relative or absolute path to project root where the Xcode project ' +
         '(.xcodeproj) lives.',
-      default: 'ios',
+      default: ({project: {ios}}: ContextT) =>
+        ios ? ios.sourceDir : undefined,
     },
     {
       command: '--device [string]',

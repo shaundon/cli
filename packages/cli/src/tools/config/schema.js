@@ -22,7 +22,9 @@ const command = t.object({
       command: t.string().required(),
       description: t.string(),
       parse: t.func(),
-      default: t.alternatives().try([t.bool(), t.number(), t.string()]),
+      default: t
+        .alternatives()
+        .try([t.bool(), t.func(), t.number(), t.string()]),
     }),
   ),
   examples: t.array().items(
