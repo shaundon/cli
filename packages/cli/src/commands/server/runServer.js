@@ -13,7 +13,7 @@ import {Terminal} from 'metro-core';
 
 import morgan from 'morgan';
 import path from 'path';
-import type {ConfigT} from '../../tools/config/types.flow';
+import type {ConfigT} from '../../../../../types/config';
 import messageSocket from './messageSocket';
 import webSocketProxy from './webSocketProxy';
 import MiddlewareManager from './middleware/MiddlewareManager';
